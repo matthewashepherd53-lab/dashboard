@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Webpage Project</title><meta name="title" content="Webpage Project"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
+  "imports": {}
+}</script></head><body>
+    <div class="main-layout">
+        <div class="panel radio-panel">
+            <header class="radio-header">
+                <div class="radio-core">
+                    <span class="radio-label">RADIO COMMS</span>
+                    <div class="radio-divider"></div>
+                    <div class="station-presets">
+                        <button class="action-btn" onclick="playRadio('URL_HERE', 'Station 1')">BBC RADIO 5 LIVE</button>
+                        <button class="action-btn" onclick="playRadio('URL_HERE', 'Station 2')">STATION 2</button>
+                        <button class="action-btn" onclick="stopRadio()">OFF</button>
+                    </div>
+                </div>
+                <div id="radio-status">STANDBY</div>
+            </header>
+            <audio id="radio-player" style="display:none;"></audio>
+        </div>
+
+        <div class="dashboard-grid">
+            <section id="quad-1" class="panel resizable-panel">
+                <header>NASA APOD</header>
+                <div class="content" id="apod-root">
+                    </div>
+            </section>
+
+            <section id="quad-2" class="panel">
+                <header>MULTI-CAM FEED</header>
+                <div class="content">
+                    <div class="video-container">
+                        <iframe id="video-feed" src="https://www.youtube.com/embed/X62J9Jdm6Ao?autoplay=1&amp;mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="control-bar">
+                        <div class="source-controls">
+                            <label>SOURCE:</label>
+                            <select id="stream-selector" class="theme-select">
+                                <option value="X62J9Jdm6Ao" selected="">POOLE HARBOUR (UK)</option>
+                                <option value="fO9e9jnhYK8">SEN EARTH VIEW (ISS)</option>
+                                <option value="4kRzwJXaeIM">BIRDFEEDER CAM</option>
+                                <option value="YDvsBbKfLPA">SKY NEWS</option>
+                            </select>
+                        </div>
+                        <button id="fullscreen-btn" class="action-btn">[ F ]</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="quad-news" class="panel news-panel">
+            <header>GLOBAL INTELLIGENCE FEED</header>
+            <div class="content ticker-content">
+                <div class="news-ticker-bar">
+                    <div class="news-ticker-label">BBC NEWS</div>
+                    <div class="news-ticker-window">
+                        <div class="news-ticker-track" id="news-ticker-track">
+                            <div class="news-ticker-item">
+                                <div class="news-headline" id="ticker-headline">[ INITIALISING... ]</div>
+                                <div class="news-summary" id="ticker-summary">Awaiting RSS Signal...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="status-bar">
+        <div class="status-segment">SYSTEM READY // TERMINAL 01</div>
+        <div class="theme-menu">
+            <button onclick="setTheme('default')" class="t-btn">EMERALD</button>
+            <button onclick="setTheme('amber')" class="t-btn">AMBER</button>
+            <button onclick="setTheme('blue')" class="t-btn">COBALT</button>
+            <button onclick="setTheme('red')" class="t-btn">CRIMSON</button>
+        </div>
+        <div class="status-segment datetime" id="footer-date">--/--/--</div>
+    </footer>
+
+    <script src="script.js"></script>
+<script src="./script.js" type="module"></script></body></html>

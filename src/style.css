@@ -1,0 +1,217 @@
+/* --- 1. THEME ENGINE (RESTORED MUTED PASTELS) --- */
+:root { --primary-color: #78c2ad; }
+body.theme-amber { --primary-color: #e6b38a !important; }
+body.theme-blue  { --primary-color: #8fb6d9 !important; }
+body.theme-red   { --primary-color: #d98f8f !important; }
+
+/* --- 2. GLOBAL RESET & ANCHOR --- */
+body {
+    margin: 0; padding: 0;
+    background-color: #0a0a0a; color: #d4d4d4;
+    font-family: 'Courier New', monospace; 
+    height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+}
+
+.main-layout {
+    flex: 1; display: flex; flex-direction: column;
+    padding: 4px 12px 10px 12px; /* 4px top gap confirmed */
+    gap: 10px; box-sizing: border-box; min-height: 0; 
+}
+
+/* --- 3. RADIO PANEL (4px TOP) --- */
+.radio-panel {
+    height: 38px; flex-shrink: 0;
+    background-color: #111; border: 1px solid #333;
+}
+.radio-header {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; padding: 0 12px; background-color: #1a1a1a; height: 100%;
+}
+
+/* --- 4. THE GRID --- */
+.dashboard-grid {
+    display: grid; grid-template-columns: 1fr 1fr; 
+    gap: 12px; flex: 1; min-height: 0; 
+}
+.panel {
+    background-color: #111; border: 1px solid #333;
+    display: flex; flex-direction: column; overflow: hidden;
+}
+header {
+    background-color: #1a1a1a; padding: 6px 12px; font-size: 0.8rem;
+    color: var(--primary-color); border-bottom: 1px solid #333;
+    text-transform: uppercase; letter-spacing: 2px;
+}
+
+/* --- 5. NEWS TICKER (RESTORED COLORS) --- */
+.news-panel { height: 100px; flex-shrink: 0; }
+.news-ticker-bar { display: flex; height: 100%; background: #111; }
+.news-ticker-label {
+    width: 100px; background: #1a1a1a; border-right: 1px solid #333;
+    color: var(--primary-color); font-size: 0.7rem; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+}
+.news-ticker-window { flex: 1; overflow: hidden; position: relative; }
+.news-ticker-track { display: flex; width: max-content; animation: news-scroll 160s linear infinite; }
+.news-ticker-item { width: 500px; padding: 15px; border-right: 1px solid #222; }
+.news-headline { color: var(--primary-color); font-weight: bold; font-size: 0.8rem; }
+.news-summary { color: #888; font-size: 0.65rem; }
+
+/* --- 6. FOOTER & THEME SWITCHER (RESTORED) --- */
+.status-bar {
+    height: 35px; background: #111; border-top: 1px solid #333;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 15px; font-size: 0.7rem; flex-shrink: 0;
+}
+.t-btn { 
+    background: none; border: 1px solid var(--primary-color); 
+    color: var(--primary-color); padding: 2px 8px; 
+    cursor: pointer; font-family: inherit; font-size: 0.6rem;
+}
+.t-btn:hover { background: var(--primary-color); color: #000; }
+
+/* --- 7. VIDEO & SELECTOR --- */
+.video-container { position: relative; flex: 1; background: #000; min-height: 0; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.theme-select {
+    background: #111; color: var(--primary-color); border: 1px solid #444;
+    font-family: inherit; font-size: 0.7rem; padding: 2px 4px;
+}
+
+@keyframes news-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* --- 1. RADIO & ACTION BUTTONS (RESTORED HOLLOW STYLE) --- */
+.action-btn {
+    background: none !important; /* Forces the hollow background */
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+    cursor: pointer;
+    padding: 2px 8px;
+    font-family: inherit;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--primary-color) !important;
+    color: #000 !important;
+}
+
+/* --- 2. RADIO PANEL STABILITY FIX --- */
+.radio-panel {
+    height: 38px;
+    flex-shrink: 0;
+    background-color: #111;
+    border: 1px solid #333;
+    display: flex; 
+    flex-direction: column; /* Ensures internal header fills correctly */
+}
+
+.radio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1; /* Fills the 38px height */
+    padding: 0 12px !important;
+    background-color: #1a1a1a;
+}
+
+/* --- 3. GRID STABILITY FIX --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    flex: 1;
+    min-height: 0; /* Prevents quads from expanding/collapsing unpredictably */
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Keeps NASA image and Video from breaking borders */
+}
+
+/* --- 4. VIDEO SOURCE SELECTOR COLORS --- */
+.theme-select {
+    background: #111 !important;
+    color: var(--primary-color) !important;
+    border: 1px solid #444 !important;
+    font-family: inherit;
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    outline: none;
+}
+
+/* --- 1. THE [F] BUTTON & CONTROL BAR FIX --- */
+.control-bar { 
+    background: #1a1a1a; 
+    padding: 6px 10px; 
+    border-top: 1px solid #333;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    flex-shrink: 0; /* Prevents the bar from collapsing */
+    white-space: nowrap; /* Forces content to stay on one line */
+}
+
+.source-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+/* --- 2. APOD QUAD RESTORATION --- */
+#quad-1 {
+    display: flex;
+    flex-direction: column;
+}
+
+#apod-root {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* Ensure the image within APOD behaves like a proper quad element */
+#apod-root img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* --- 3. THE BUTTONS (STATION & [F]) --- */
+.action-btn {
+    background: none !important;
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+    cursor: pointer;
+    padding: 2px 8px;
+    font-family: inherit;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    transition: all 0.1s;
+    flex-shrink: 0; /* Critical for keeping [F] from moving */
+}
+
+.action-btn:hover {
+    background: var(--primary-color) !important;
+    color: #000 !important;
+}
+
+/* --- 4. GRID RE-ALIGNMENT --- */
+.dashboard-grid {
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 12px; 
+    flex: 1; 
+    min-height: 0;
+    margin-top: 2px; /* Keeps the spacing consistent below the radio bar */
+}
