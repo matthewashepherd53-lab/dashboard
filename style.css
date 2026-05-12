@@ -1,0 +1,452 @@
+/* --- SECTION 0: THEME VARIABLES & SWITCHER --- */
+:root {
+    /* Muted Emerald / Seafoam */
+    --primary-color: #78c2ad; 
+}
+
+/* Theme Overrides - Desaturated Pastel Versions */
+body.theme-amber { 
+    --primary-color: #e6b38a !important; /* Muted Peach/Amber */
+}
+body.theme-blue { 
+    --primary-color: #8fb6d9 !important; /* Dust Blue / Pastel Cobalt */
+}
+body.theme-red { 
+    --primary-color: #d98f8f !important; /* Muted Rose / Pastel Crimson */
+}
+
+/* The old switcher is now redundant if you are using the footer, 
+   but keeping it here just in case you haven't removed the HTML yet */
+.theme-switcher {
+    position: fixed;
+    top: 6px;
+    right: 55px;
+    z-index: 10000;
+    display: flex;
+    gap: 8px;
+    background: rgba(0,0,0,0.6);
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #333;
+}
+
+.theme-switcher button {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* --- SECTION 1: GLOBAL LAYOUT --- */
+body {
+    margin: 0;
+    background-color: #0a0a0a;
+    color: #d4d4d4;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100vh;
+    overflow: hidden; 
+}
+
+.dashboard-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px;
+    height: calc(100vh - 30px); /* Adjusted for footer */
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+    max-width: 50%;
+    min-width: 50%;
+    gap: 12px;
+    height: 100%;
+}
+
+/* --- SECTION 2: PANEL COMPONENTS --- */
+.panel {
+    background-color: #111;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+header {
+    background-color: #1a1a1a;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    border-bottom: 1px solid #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+header::after { content: '[-]'; font-size: 0.7rem; margin-left: 10px; }
+
+.panel.collapsed {
+    flex: 0 0 32px; 
+}
+
+.panel.collapsed header::after { content: '[+]'; }
+
+.content {
+    padding: 15px;
+    flex-grow: 1;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel.collapsed .content { display: none; }
+
+/* --- SECTION 3: MEDIA CONTAINERS --- */
+#quad-1 .content, #quad-2 .content, #quad-4 .content {
+    padding: 0;
+}
+
+.apod-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.apod-image {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    object-fit: contain;
+    border: 1px solid #333;
+    margin-bottom: 8px;
+}
+
+#quad-4 .apod-image { 
+    object-fit: cover; 
+    height: 100%;
+}
+
+.apod-footer {
+    flex-shrink: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.apod-description {
+    margin-top: 5px;
+    font-size: 0.7rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.4em;
+    cursor: pointer;
+}
+
+/* --- SECTION 4: VIDEO & CONTROLS --- */
+.video-container {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    background: #000;
+    overflow: hidden; 
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    pointer-events: none; 
+}
+
+.control-bar {
+    position: relative;
+    z-index: 10;
+    background-color: #1a1a1a;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #333;
+    pointer-events: auto; 
+}
+
+#stream-selector {
+    background: #111;
+    color: var(--primary-color);
+    border: 1px solid #333;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    padding: 4px;
+    cursor: pointer;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+#fullscreen-btn {
+    background: #111;
+    color: var(--primary-color);
+    border: 1px solid #333;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    font-weight: normal;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    white-space: nowrap;
+    letter-spacing: -3.5px;
+    text-indent: -1px;
+}
+
+#fullscreen-btn:hover {
+    background: #222;
+    border-color: var(--primary-color);
+}
+
+/* --- SECTION 5: MODAL OVERLAYS --- */
+.apod-description.expanded {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%; 
+    max-height: 70%;
+    background: #111;
+    border: 2px solid var(--primary-color);
+    filter: drop-shadow(0 0 15px var(--primary-color));
+    padding: 30px;
+    z-index: 9999;
+    overflow-y: auto;
+    display: block;
+}
+
+/* --- SECTION 6: RESPONSIVE STACKING --- */
+@media (max-width: 480px) {
+    body { overflow-y: auto; height: auto; }
+    .dashboard-grid { flex-direction: column; height: auto; }
+    
+    .grid-column { 
+        display: contents; 
+    }
+
+    .panel { 
+        flex: 0 0 400px; 
+    }
+
+    #quad-2 { order: 2; } 
+    #quad-1 { order: 1; }
+    #quad-3 { order: 4; }
+    #quad-4 { order: 3; }
+}
+
+/* --- SECTION 7: FOOTER STATUS BAR --- */
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: #111;
+    border-top: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+    z-index: 10000;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+.status-segment {
+    color: #666;
+}
+
+.theme-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-menu .label {
+    color: #444;
+    font-weight: bold;
+}
+
+.t-btn {
+    background: none;
+    border: 1px solid #333;
+    color: #888;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    transition: 0.2s;
+}
+
+/* --- SECTION 7: FOOTER STATUS BAR (Updated Hovers) --- */
+/* Update these so the hover effects don't look too bright compared to the new theme */
+.btn-green:hover { color: #78c2ad; border-color: #78c2ad; }
+.btn-amber:hover { color: #e6b38a; border-color: #e6b38a; }
+.btn-blue:hover  { color: #8fb6d9; border-color: #8fb6d9; }
+.btn-red:hover   { color: #d98f8f; border-color: #d98f8f; }
+
+/* Ensure active button state matches muted tones */
+body.theme-amber .btn-amber { color: var(--primary-color); border-color: var(--primary-color); }
+body.theme-blue  .btn-blue  { color: var(--primary-color); border-color: var(--primary-color); }
+body.theme-red   .btn-red   { color: var(--primary-color); border-color: var(--primary-color); }
+body:not([class*='theme-']) .btn-green { color: var(--primary-color); border-color: var(--primary-color); }
+
+/* --- SECTION 8: SPORTS FEED STYLING --- */
+.sports-ticker {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.game-card {
+    border-bottom: 1px solid #222;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.team-names {
+    font-size: 0.8rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.score-display {
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+}
+
+.game-status {
+    font-size: 0.6rem;
+    color: #666;
+    display: block;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* --- SECTION 9: BBC NEWS TICKER --- */
+.news-ticker-bar {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background: #111;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: stretch;
+    z-index: 9999;
+    font-family: 'Courier New', monospace;
+    box-sizing: border-box;
+}
+
+.news-ticker-label {
+    width: 120px;
+    background: #1a1a1a;
+    border-right: 1px solid #333;
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.news-ticker-window {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.news-ticker-track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    align-items: center;
+    animation: news-scroll 240s linear infinite;
+}
+
+.news-ticker-item {
+    width: 520px;
+    padding: 10px 28px;
+    box-sizing: border-box;
+    border-right: 1px solid #222;
+    flex-shrink: 0;
+}
+
+.news-headline {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: bold;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.news-summary {
+    color: #888;
+    font-size: 0.68rem;
+    line-height: 1.25;
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes news-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.news-ticker-bar:hover .news-ticker-track {
+    animation-play-state: paused;
+}

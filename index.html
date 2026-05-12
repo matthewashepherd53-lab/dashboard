@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard-grid">
+    <div class="grid-column">
+        <section id="quad-1" class="panel">
+            <header>NASA APOD</header>
+            <div class="content" id="apod-root">
+                <p style="color: #444; text-align: center; margin-top: 20%;">[ DATA OFFLINE ]</p>
+            </div>
+        </section>
+
+        <section id="quad-3" class="panel">
+            <header>LIVE SPORTS FEED</header>
+            <div class="content" id="sports-root">
+                <div class="sports-ticker">
+                    <p style="color: #444; text-align: center; margin-top: 20%;">[ INITIALIZING TRACKER... ]</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="grid-column">
+        <section id="quad-2" class="panel">
+            <header>MULTI-CAM FEED</header>
+            <div class="content">
+                <div class="video-container">
+                    <iframe 
+                        id="video-feed" 
+                        src="https://www.youtube.com/embed/live_stream?channel=UCk70QelhKG9mVuj7jN4I5Cg&autoplay=1&mute=1" 
+                        frameborder="0" 
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="control-bar">
+                    <label>SOURCE:</label>
+                    <select id="stream-selector">
+                        <option value="live_stream?channel=UCk70QelhKG9mVuj7jN4I5Cg">DYFI OSPREY PROJECT</option>
+                        <option value="fO9e9jnhYK8">SEN EARTH VIEW (ISS)</option>
+                        <option value="4kRzwJXaeIM">BIRDFEEDER CAM</option>
+                    </select>
+                    <button id="fullscreen-btn" title="Expand Feed">[ F ]</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="quad-4" class="panel">
+            <header>ORBITAL VIEW</header>
+            <div class="content" id="bing-root">
+                <div class="apod-container">
+                    <img 
+                        src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=1200&q=80" 
+                        alt="Satellite Earth" 
+                        class="apod-image">
+                    
+                    <div class="apod-footer">
+                        <div style="font-size: 0.7rem; color: var(--primary-color); margin-bottom: 4px;">
+                            SAT-LINK // STATIC BACKUP ACTIVE
+                        </div>
+                        <div class="apod-description">
+                            Live telemetry interrupted. Displaying last cached orbital frame (L1 Lagrange Point).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<section class="news-ticker-bar">
+    <div class="news-ticker-label">BBC NEWS</div>
+    
+    <div class="news-ticker-window">
+        <div class="news-ticker-track" id="news-ticker-track">
+            <div class="news-ticker-item">
+                <div class="news-headline">[ INITIALISING NEWS FEED... ]</div>
+                <div class="news-summary">Awaiting BBC RSS signal.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="status-bar">
+    <div class="status-segment">SYSTEM READY // TERMINAL 01</div>
+    
+    <div class="theme-menu">
+        <span class="label">VISUAL SPECTRUM:</span>
+        <button onclick="setTheme('default')" class="t-btn btn-green">EMERALD</button>
+        <button onclick="setTheme('amber')" class="t-btn btn-amber">AMBER</button>
+        <button onclick="setTheme('blue')" class="t-btn btn-blue">COBALT</button>
+        <button onclick="setTheme('red')" class="t-btn btn-red">CRIMSON</button>
+    </div>
+
+    <div class="status-segment datetime" id="footer-date">--/--/--</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
