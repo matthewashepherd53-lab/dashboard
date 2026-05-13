@@ -24,8 +24,12 @@ body {
     background-color: #111; border: 1px solid #333;
 }
 .radio-header {
-    display: flex; justify-content: space-between; align-items: center;
-    width: 100%; padding: 0 12px; background-color: #1a1a1a; height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 12px !important;
+    background-color: #1a1a1a;
+    flex: 1;
 }
 
 /* --- 4. THE GRID --- */

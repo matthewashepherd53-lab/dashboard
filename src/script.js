@@ -71,21 +71,46 @@ document.addEventListener("DOMContentLoaded", () => {
     updateClock();
 });
 
-function playRadio(url, name) {
+let hlsRadio = null;
+
+window.playRadio = function(url, name) {
     const player = document.getElementById('radio-player');
     const status = document.getElementById('radio-status');
-    
-    player.src = url;
-    player.play();
-    
+
+    if (hlsRadio) {
+        hlsRadio.destroy();
+        hlsRadio = null;
+    }
+
+    if (window.Hls && Hls.isSupported() && url.includes('.m3u8')) {
+        hlsRadio = new Hls();
+        hlsRadio.loadSource(url);
+        hlsRadio.attachMedia(player);
+        hlsRadio.on(Hls.Events.MANIFEST_PARSED, () => {
+            player.play();
+        });
+    } else {
+        player.src = url;
+        player.play();
+    }
+
     status.innerText = "LIVE // " + name.toUpperCase();
-    status.style.textShadow = "0 0 8px var(--primary-color)"; // Adds the active glow
+    status.style.textShadow = "0 0 8px var(--primary-color)";
 }
 
-function stopRadio() {
+window.stopRadio = function() {
     const player = document.getElementById('radio-player');
     const status = document.getElementById('radio-status');
+
     player.pause();
+    player.removeAttribute('src');
+    player.load();
+
+    if (hlsRadio) {
+        hlsRadio.destroy();
+        hlsRadio = null;
+    }
+
     status.innerText = "STANDBY";
-    status.style.textShadow = "none"; // Removes glow
+    status.style.textShadow = "none";
 }
