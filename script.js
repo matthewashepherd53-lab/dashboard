@@ -23,36 +23,24 @@ async function fetchBBCNewsTicker() {
     } catch (e) { console.error("News Error", e); }
 }
 
-async function fetchNASAData() {
-    const apodUrl = "https://api.nasa.gov/planetary/apod?api_key=nR2JwicfkArXboMDbTxvJdoZxDUM7sOajxa3PM28";
-    try {
-        const response = await fetch(apodUrl);
-        const data = await response.json();
-        const root = document.getElementById("apod-root");
-        if (data.media_type === "image") {
-            root.innerHTML = `
-                <div class="apod-container">
-                    <img src="${data.url}" class="apod-image">
-                    <div style="margin-top:5px; font-size:0.7rem; color:var(--primary-color); text-align:center;">${data.title.toUpperCase()}</div>
-                </div>`;
-        }
-    } catch (e) { console.error("NASA Error", e); }
-}
-
 function initControls() {
     const selector = document.getElementById("stream-selector");
     const videoFrame = document.getElementById("video-feed");
     const fullBtn = document.getElementById("fullscreen-btn");
 
-    selector.addEventListener("change", e => {
-        const val = e.target.value;
-        const joiner = val.includes('?') ? '&' : '?';
-        videoFrame.src = `https://www.youtube.com/embed/${val}${joiner}autoplay=1&mute=1`;
-    });
+    if (selector && videoFrame) {
+        selector.addEventListener("change", e => {
+            const val = e.target.value;
+            const joiner = val.includes('?') ? '&' : '?';
+            videoFrame.src = `https://www.youtube.com/embed/${val}${joiner}autoplay=1&mute=1`;
+        });
+    }
 
-    fullBtn.addEventListener("click", () => {
-        if (videoFrame.requestFullscreen) videoFrame.requestFullscreen();
-    });
+    if (fullBtn && videoFrame) {
+        fullBtn.addEventListener("click", () => {
+            if (videoFrame.requestFullscreen) videoFrame.requestFullscreen();
+        });
+    }
 }
 
 function updateClock() {
@@ -61,7 +49,6 @@ function updateClock() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetchNASAData();
     fetchBBCNewsTicker();
     initControls();
     const savedTheme = localStorage.getItem("active_spectrum");
@@ -113,25 +100,4 @@ window.stopRadio = function() {
 
     status.innerText = "STANDBY";
     status.style.textShadow = "none";
-}
-
-// Change this line to bind it to the global window scope
-window.toggleApod = function() {
-    const apodPanel = document.getElementById('quad-1');
-    const gridContainer = document.querySelector('.dashboard-grid');
-    const toggleBtn = document.getElementById('apod-toggle-btn');
-    
-    if (!apodPanel || !gridContainer || !toggleBtn) return;
-    
-    const isHidden = apodPanel.classList.contains('collapsed-state');
-    
-    if (!isHidden) {
-        apodPanel.classList.add('collapsed-state');
-        gridContainer.classList.add('apod-hidden');
-        toggleBtn.innerText = "[ SHOW ]";
-    } else {
-        apodPanel.classList.remove('collapsed-state');
-        gridContainer.classList.remove('apod-hidden');
-        toggleBtn.innerText = "[ HIDE ]";
-    }
 }

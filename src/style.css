@@ -1,4 +1,4 @@
-/* --- 1. THEME ENGINE (RESTORED MUTED PASTELS) --- */
+/* --- 1. THEME ENGINE (MUTED PASTELS) --- */
 :root { --primary-color: #78c2ad; }
 body.theme-amber { --primary-color: #e6b38a !important; }
 body.theme-blue  { --primary-color: #8fb6d9 !important; }
@@ -18,7 +18,7 @@ body {
     gap: 10px; box-sizing: border-box; min-height: 0; 
 }
 
-/* --- 3. RADIO PANEL & HEADER STABILITY --- */
+/* --- 3. RADIO PANEL --- */
 .radio-panel {
     height: 38px;
     flex-shrink: 0;
@@ -37,7 +37,7 @@ body {
     background-color: #1a1a1a;
 }
 
-/* --- 4. ACTION BUTTONS (RESTORED HOLLOW STYLE) --- */
+/* --- 4. ACTION BUTTONS --- */
 .action-btn {
     background: none !important;
     border: 1px solid var(--primary-color) !important;
@@ -56,24 +56,26 @@ body {
     color: #000 !important;
 }
 
-/* --- 5. DASHBOARD GRID & ANIMATION ENGINE --- */
+/* --- 5. DASHBOARD GRID (FULL ULTRA-WIDE ARCHITECTURE) --- */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr !important; /* Strictly forces a single wide track */
+    width: 100%;                          /* Structural anchor to screen edges */
+    gap: 0px;                             /* Clears out obsolete divider space */
     flex: 1;
     min-height: 0;
     margin-top: 2px;
-    transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1), gap 0.3s ease;
 }
 
-/* Dynamic State: Swaps track footprint instantly when triggered */
-.dashboard-grid.apod-hidden {
-    grid-template-columns: 0fr 2fr !important;
-    gap: 0px !important;
+/* Force the panel container inside the grid track to claim all width */
+.dashboard-grid #quad-2.panel {
+    width: 100% !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-/* --- 6. QUAD PANELS & CONTENT CONTAINER --- */
+/* --- 6. QUAD PANELS & CONTENT CONTAINERS --- */
 .panel {
     background-color: #111; border: 1px solid #333;
     display: flex; flex-direction: column; overflow: hidden;
@@ -92,44 +94,7 @@ header {
     overflow: hidden;
 }
 
-/* --- 7. NASA APOD SPECIFIC PANEL --- */
-#quad-1 {
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: left center;
-}
-
-/* Collapse State Modifier */
-#quad-1.collapsed-state {
-    width: 0 !important;
-    min-width: 0 !important;
-    max-width: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    opacity: 0;
-    pointer-events: none;
-}
-
-#apod-root {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    overflow: hidden;
-    min-height: 0;
-}
-
-#apod-root img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* --- 8. MULTI-CAM FEED & VIDEO CONTROL BAR --- */
+/* --- 7. MULTI-CAM FEED & VIDEO CONTROL BAR --- */
 .video-container { position: relative; flex: 1; background: #000; min-height: 0; }
 .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
@@ -161,7 +126,7 @@ header {
     outline: none;
 }
 
-/* --- 9. NEWS TICKER FEED --- */
+/* --- 8. NEWS TICKER FEED --- */
 .news-panel { height: 100px; flex-shrink: 0; }
 .news-ticker-bar { display: flex; height: 100%; background: #111; }
 .news-ticker-label {
@@ -177,7 +142,7 @@ header {
 
 @keyframes news-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* --- 10. FOOTER STATUS BAR --- */
+/* --- 9. FOOTER STATUS BAR --- */
 .status-bar {
     height: 35px; background: #111; border-top: 1px solid #333;
     display: flex; justify-content: space-between; align-items: center;
