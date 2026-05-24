@@ -1,6 +1,11 @@
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="script.js"></script>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <div class="main-layout">
         <div class="panel radio-panel">
@@ -22,9 +27,11 @@
 
         <div class="dashboard-grid">
             <section id="quad-1" class="panel resizable-panel">
-                <header>NASA APOD</header>
-                <div class="content" id="apod-root">
-                    </div>
+                <header style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>NASA APOD</span>
+                    <button class="action-btn" onclick="toggleApod()" id="apod-toggle-btn" style="padding: 0px 6px; font-size: 0.6rem;">[ HIDE ]</button>
+                </header>
+                <div class="content" id="apod-root"></div>
             </section>
 
             <section id="quad-2" class="panel">
@@ -41,6 +48,8 @@
                                 <option value="fO9e9jnhYK8">SEN EARTH VIEW (ISS)</option>
                                 <option value="4kRzwJXaeIM">BIRDFEEDER CAM</option>
                                 <option value="YDvsBbKfLPA">SKY NEWS</option>
+                                <option value="MiJIODpKngw">TALKSPORT</option>
+                                <option value="xCCvUvU6XO8">DYFI OSPREY PROJECT</option>
                             </select>
                         </div>
                         <button id="fullscreen-btn" class="action-btn">[ F ]</button>
@@ -78,4 +87,7 @@
         <div class="status-segment datetime" id="footer-date">--/--/--</div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="script.js"></script>
 </body>
+</html>

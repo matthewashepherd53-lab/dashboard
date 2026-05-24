@@ -114,3 +114,24 @@ window.stopRadio = function() {
     status.innerText = "STANDBY";
     status.style.textShadow = "none";
 }
+
+// Change this line to bind it to the global window scope
+window.toggleApod = function() {
+    const apodPanel = document.getElementById('quad-1');
+    const gridContainer = document.querySelector('.dashboard-grid');
+    const toggleBtn = document.getElementById('apod-toggle-btn');
+    
+    if (!apodPanel || !gridContainer || !toggleBtn) return;
+    
+    const isHidden = apodPanel.classList.contains('collapsed-state');
+    
+    if (!isHidden) {
+        apodPanel.classList.add('collapsed-state');
+        gridContainer.classList.add('apod-hidden');
+        toggleBtn.innerText = "[ SHOW ]";
+    } else {
+        apodPanel.classList.remove('collapsed-state');
+        gridContainer.classList.remove('apod-hidden');
+        toggleBtn.innerText = "[ HIDE ]";
+    }
+}
